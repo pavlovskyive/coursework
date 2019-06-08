@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <title>Vigenerius</title>
+  </head>
+  <body>
+    <div id="get-container" class="disabled">
+      <div id="text"></div>
+      <div id="text-form">
+        <input id="key" />
+        <button disabled="disabled" id="process-button">Process</button>
+      </div>
+    </div>
+    <div id="lower-container">
+      <div id="search-container">
+        <input
+          type="text"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+          id="search"
+        />
+        <i class="material-icons" id="search-button">search</i>
+      </div>
+      <p>or</p>
+      <button id="upload-button">Upload File</button>
+    </div>
+    <script>
+      let search = document.getElementById("search");
+      let uploadButton = document.getElementById("upload-button");
+      let processButton = document.getElementById("process-button");
+      let searchButton = document.getElementById("search-button");
+      let getContainer = document.getElementById("get-container");
+      let lowerContainer = document.getElementById("lower-container");
+      let keyInput = document.getElementById("key");
+
+      uploadButton.addEventListener(
+        "click",
+        () => (window.location.pathname = "/upload")
+      );
+
+      search.placeholder = "enter file id:";
+      keyInput.placeholder = "key to decipher:";
+    </script>
+    <script src="vigenere.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

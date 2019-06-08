@@ -1,0 +1,25 @@
+{
+  "name": "coursework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pavlovskyive/coursework.git"
+  },
+  "author": "https://github.com/pavlovskyive/",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pavlovskyive/coursework/issues"
+  },
+  "homepage": "https://github.com/pavlovskyive/coursework#readme",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-google": "^0.13.0",
+    "prettier": "1.18.2"
+  }
+}
