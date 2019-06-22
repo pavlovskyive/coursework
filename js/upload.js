@@ -1,3 +1,61 @@
+import Vigenere from '/js/vigenere.js';
+const vigenere = new Vigenere();
+
+const dropArea = document.getElementById('drop-area');
+const uploadContainer = document.getElementById('upload-container');
+const keyInput = document.getElementById('key');
+const processButton = document.getElementById('process-button');
+const uploadButton = document.getElementById('upload-button');
+const notification = document.getElementById('notification');
+const fileElem = document.getElementById('file-elem');
+
+fileElem.addEventListener('change', (e) => handleFiles(e.target.files));
+
+keyInput.placeholder = 'key to cipher:';
+
+let counter = 0;
+
+[
+  'drag',
+  'dragstart',
+  'dragend',
+  'dragover',
+  'dragenter',
+  'dragleave',
+  'drop',
+].forEach((eventName) =>
+  dropArea.addEventListener(
+      eventName,
+      (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      },
+      false
+  )
+);
+
+['dragenter'].forEach((eventName) => {
+  dropArea.addEventListener(
+      eventName,
+      () => {
+        dropArea.classList.add('highlight');
+        counter++;
+      },
+      false
+  );
+});
+
+['dragleave', 'drop'].forEach((eventName) => {
+  dropArea.addEventListener(
+      eventName,
+      () => {
+        counter--;
+        if (counter === 0) dropArea.classList.remove('highlight');
+      },
+      false
+  );
+});
+
 let data = '';
 
 dropArea.addEventListener('drop', (e) => {
@@ -66,18 +124,18 @@ const notificate = (text) => {
 uploadButton.addEventListener('click', () => {
   const text = uploadContainer.children[0].textContent;
 
-  fetch('/uploadfile', {
+  fetch('/uploadFile', {
     method: 'POST',
     headers: {'Content-Type': 'text/plain'},
     body: text,
   })
       .then((res) => {
         if (res.status == 200) {
-          res.text().then((id) =>
-            notificate(`File uploaded succesfully!
+          console.log(res);
+          const id = res.statusText;
+          notificate(`File uploaded succesfully!
 The id of your file is: ${id}
-It is recommended to write this down!`)
-          );
+It is recommended to write this down!`);
         } else {
           throw Error(`File is NOT uploaded:
     ${rew.statusText}`);

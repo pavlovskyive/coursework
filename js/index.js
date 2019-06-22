@@ -1,3 +1,6 @@
+import Vigenere from '/js/vigenere.js';
+const vigenere = new Vigenere();
+
 let data = '';
 
 search.addEventListener('keyup', (e) => {
@@ -18,7 +21,7 @@ keyInput.addEventListener('keyup', (e) => {
 
 searchButton.addEventListener('click', () => {
   if (search.value.length == 0) return;
-  fetch(`/files/${search.value}`)
+  fetch(`/files/${search.value}.txt`)
       .then((res) => {
         if (res.status === 200) {
           res.text().then((text) => {

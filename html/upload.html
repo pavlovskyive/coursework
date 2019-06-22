@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="upload.css" />
+    <link rel="stylesheet" href="/css/upload.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -32,70 +32,13 @@
       <form id="my-form">
         <i class="material-icons">cloud_upload</i>
         <div id="fileSelect">
-          <input
-            type="file"
-            id="file-elem"
-            onchange="handleFiles(this.files)"
-          />
+          <input type="file" id="file-elem" />
           <label class="button" for="file-elem">Select file</label>
           <p>or drop file here</p>
         </div>
       </form>
     </div>
-    <script>
-      let dropArea = document.getElementById("drop-area");
-      let uploadContainer = document.getElementById("upload-container");
-      let keyInput = document.getElementById("key");
-      let processButton = document.getElementById("process-button");
-      let uploadButton = document.getElementById("upload-button");
-      let notification = document.getElementById("notification");
-
-      keyInput.placeholder = "key to cipher:";
-
-      let counter = 0;
-
-      [
-        "drag",
-        "dragstart",
-        "dragend",
-        "dragover",
-        "dragenter",
-        "dragleave",
-        "drop"
-      ].forEach(eventName =>
-        dropArea.addEventListener(
-          eventName,
-          e => {
-            e.preventDefault();
-            e.stopPropagation();
-          },
-          false
-        )
-      );
-
-      ["dragenter"].forEach(eventName => {
-        dropArea.addEventListener(
-          eventName,
-          () => {
-            dropArea.classList.add("highlight");
-            counter++;
-          },
-          false
-        );
-      });
-
-      ["dragleave", "drop"].forEach(eventName => {
-        dropArea.addEventListener(
-          eventName,
-          () => {
-            counter--;
-            if (counter === 0) dropArea.classList.remove("highlight");
-          },
-          false
-        );
-      });
-    </script>
-    <script src="vigenere.js"></script>
-    <script src="upload.js"></script>
+    <script type="module" src="/js/vigenere.js"></script>
+    <script type="module" src="/js/upload.js"></script>
   </body>
 </html>

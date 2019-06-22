@@ -1,55 +1,52 @@
+/* eslint-disable require-jsdoc */
 'use strict';
 
-const vigenere = {
-  ru: 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'.split(''),
-  en: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
+export default class Vigenere {
+  constructor() {
+    this['ru'] = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'.split('');
+    this['en'] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    this.vigenereSquare = [];
+  }
 
-  vigenereSquare: [],
+  generateVigenereSquare(lan) {
+    const alphabet = this[lan];
+    for (let i = 0; i < alphabet.length; i++) {
+      this.vigenereSquare[i] = alphabet.slice(i).concat(alphabet.slice(0, i));
+    }
+  }
 
-  generateVigenereSquare: function(language) {
-    const alphabet = this[language];
-    alphabet.map(
-        (val, i) =>
-          (this.vigenereSquare[i] = alphabet
-              .slice(i)
-              .concat(alphabet.slice(0, i)))
-    );
-  },
-
-  encryption: function(language, text, key) {
-    if (!this[language]) return false;
-    this.generateVigenereSquare(language);
+  encryption(lan, text, key) {
+    this.generateVigenereSquare(lan);
     let s = '';
 
-    const re = new RegExp(`[^${this[language].join('')}]`, 'g');
+    const re = new RegExp(`[^${this[lan].join('')}]`, 'g');
 
     text = text.toUpperCase().replace(re, '');
     key = key.toUpperCase().replace(re, '');
 
     [...text].forEach((letter, index) => {
-      const row = this[language].indexOf(letter);
-      const coll = this[language].indexOf(key[index % key.length]);
+      const row = this[lan].indexOf(letter);
+      const coll = this[lan].indexOf(key[index % key.length]);
       s += this.vigenereSquare[row][coll];
     });
     return s;
-  },
+  }
 
-  decryption: function(language, cipher, key) {
-    if (!this[language]) return false;
-    this.generateVigenereSquare(language);
+  decryption(lan, text, key) {
+    this.generateVigenereSquare(lan);
     let s = '';
 
-    const re = new RegExp(`[^${this[language].join('')}]`, 'g');
+    const re = new RegExp(`[^${this[lan].join('')}]`, 'g');
 
-    cipher = cipher.toUpperCase().replace(re, '');
+    text = text.toUpperCase().replace(re, '');
     key = key.toUpperCase().replace(re, '');
 
-    [...cipher].forEach((letter, index) => {
-      const row = this[language].indexOf(key[index % key.length]);
+    [...text].forEach((letter, index) => {
+      const row = this[lan].indexOf(key[index % key.length]);
       const coll = this.vigenereSquare[row].indexOf(letter);
-      s += this[language][coll];
+      s += this[lan][coll];
     });
 
     return s;
-  },
-};
+  }
+}
